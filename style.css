@@ -100,3 +100,5 @@ footer.site a { color: var(--muted); }
   .brand span.word { display: none; }
   .btn { display: block; margin: 0 0 10px !important; }
 }
+
+.hidden { display: none !important; }
