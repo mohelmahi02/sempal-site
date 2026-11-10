@@ -25,10 +25,11 @@
 
 <div class="note" id="iphone"><strong>Got an iPhone?</strong> The beta is Android-only for now. We'll let you know as soon as there's an iPhone version.</div>
 
-<p>
+<p id="androidDownload">
   <!-- TODO: replace the href with the EAS build download link before sharing -->
   <a class="btn" id="download" href="DOWNLOAD_LINK">Download SemPal for Android</a>
 </p>
+<div class="warn hidden" id="iosNotice"><strong>You're on an iPhone.</strong> This download only works on Android phones. The iPhone beta is coming through TestFlight; we'll send you the link when it's ready.</div>
 
 <h2>Install it</h2>
 <ol class="steps">
@@ -75,6 +76,14 @@
 
 <p>By using the beta you agree to our <a href="terms.html">Terms</a>. Here's how we handle your data: <a href="privacy.html">Privacy Policy</a>.</p>
 </main>
+<script>
+  // iPhones can't install Android apps: swap the download button for a note
+  if (/iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+    document.getElementById('androidDownload').style.display = 'none';
+    document.getElementById('iosNotice').classList.remove('hidden');
+  }
+</script>
 
 <footer class="site"><div class="wrap">
   <span>© 2026 SemPal · Made in Ireland</span>
