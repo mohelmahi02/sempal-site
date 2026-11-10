@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shared module – SemPal</title>
+<meta name="description" content="A classmate shared their module deadlines with you on SemPal.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .share-card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px; text-align: center; margin: 28px 0 22px; }
+  .share-card .mod-code { color: var(--blue); font-weight: 800; letter-spacing: .02em; }
+  .share-card h1 { font-size: clamp(1.5rem, 5.5vw, 2rem); line-height: 1.2; margin: 4px 0 6px; }
+  .share-card .count { color: var(--muted); margin: 0; }
+  .code-box { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 20px 0 6px; flex-wrap: wrap; }
+  .code { font-size: 2rem; font-weight: 800; letter-spacing: .3em; padding: 8px 4px 8px 14px; border: 2px dashed var(--line); border-radius: 12px; background: var(--bg); }
+  .copy { background: transparent; border: 2px solid var(--blue); color: var(--blue); font: inherit; font-weight: 700; padding: 10px 16px; border-radius: 12px; cursor: pointer; }
+  .copied { color: var(--muted); font-size: .9rem; min-height: 1.4em; margin: 0; }
+  .actions { display: grid; gap: 10px; margin: 0 0 26px; }
+  .actions .btn { text-align: center; margin: 0 !important; display: block; }
+  .muted { color: var(--muted); }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="./"><img src="img/icon.png" alt=""><span class="word"><span class="sem">Sem</span><span class="pal">Pal</span></span></a>
+  <nav><a href="beta.html">Beta</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+</div></header>
+
+<main class="doc wrap" style="padding-top:8px">
+  <div class="share-card">
+    <p class="muted" style="margin:0 0 10px">A classmate shared a module with you</p>
+    <div id="loading" class="muted">Loading…</div>
+    <div id="found" class="hidden">
+      <div class="mod-code" id="modCode"></div>
+      <h1 id="modName"></h1>
+      <p class="count" id="modCount"></p>
+    </div>
+    <div id="missing" class="hidden">
+      <h1>This link doesn't work</h1>
+      <p class="count">It may be mistyped, or more than 30 days old. Ask your classmate to share it again.</p>
+    </div>
+
+    <div id="codeArea" class="hidden">
+      <div class="code-box">
+        <span class="code" id="code"></span>
+        <button class="copy" id="copyBtn" type="button">Copy code</button>
+      </div>
+      <p class="copied" id="copied" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="actions" id="actions">
+    <a class="btn" id="openBtn" href="#">Open in SemPal</a>
+    <a class="btn alt" id="getBtn" href="beta.html">Get SemPal</a>
+  </div>
+
+  <h2 style="border-top:0;padding-top:0">New to SemPal?</h2>
+  <ol>
+    <li>Tap <strong>Get SemPal</strong> and install the app. The code is copied for you.</li>
+    <li>Sign up and set up your profile.</li>
+    <li>Go to <strong>Modules → Got a share code from a classmate?</strong>, paste the code and tap <strong>Open</strong>.</li>
+  </ol>
+  <p class="muted">Already have SemPal? Tap <strong>Open in SemPal</strong>. You'll see the deadlines first and choose which ones to add. They're copied into your app, so nobody can change them after.</p>
+</main>
+
+<footer class="site"><div class="wrap">
+  <span>© 2026 SemPal · Made in Ireland</span>
+  <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="mailto:support@sempal.ie">support@sempal.ie</a></span>
+</div></footer>
+
+<script>
+  // Public values: the same ones the app uses. The publishable key is safe to show on a web page.
+  var SUPABASE_URL = 'https://vcutinmmbwnmkemdnuob.supabase.co';
+  var SUPABASE_KEY = 'PASTE_PUBLISHABLE_KEY_HERE';
+  var ANDROID_PACKAGE = 'ie.sempal.app';
+
+  var params = new URLSearchParams(location.search);
+  var code = (params.get('c') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+  var isAndroid = /Android/i.test(navigator.userAgent);
+  var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  var $ = function (id) { return document.getElementById(id); };
+
+  function show(id) { $(id).classList.remove('hidden'); }
+  function hide(id) { $(id).classList.add('hidden'); }
+
+  function copyCode() {
+    if (!code) return Promise.resolve(false);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(code).then(function () { return true; }, function () { return false; });
+    }
+    try {
+      var t = document.createElement('textarea');
+      t.value = code; document.body.appendChild(t); t.select();
+      var ok = document.execCommand('copy'); document.body.removeChild(t);
+      return Promise.resolve(ok);
+    } catch (e) { return Promise.resolve(false); }
+  }
+
+  // Links into the app
+  var appLink = 'sempal://share?c=' + code;
+  var fallback = location.origin + '/beta.html';
+  // On Android, Chrome opens the app if it's installed, otherwise goes to the install guide
+  var androidLink = 'intent://share?c=' + code + '#Intent;scheme=sempal;package=' + ANDROID_PACKAGE +
+    ';S.browser_fallback_url=' + encodeURIComponent(fallback) + ';end';
+  $('openBtn').href = isAndroid ? androidLink : appLink;
+  $('getBtn').href = 'beta.html' + (isIOS ? '#iphone' : '');
+
+  $('copyBtn').addEventListener('click', function () {
+    copyCode().then(function (ok) {
+      $('copied').textContent = ok ? 'Copied! Paste it in SemPal under Modules.' : 'Long-press the code to copy it.';
+    });
+  });
+  // Copy the code on the way to installing, so it's ready to paste after sign-up
+  $('getBtn').addEventListener('click', function () { copyCode(); });
+
+  if (!code || code.length !== 6) {
+    hide('loading'); show('missing'); hide('openBtn');
+  } else {
+    $('code').textContent = code;
+    show('codeArea');
+    fetch(SUPABASE_URL + '/rest/v1/rpc/peek_module_share', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ p_code: code })
+    })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        hide('loading');
+        if (!data) { show('missing'); hide('codeArea'); hide('openBtn'); return; }
+        $('modCode').textContent = data.module_code || '';
+        $('modName').textContent = data.module_name || 'Shared module';
+        var n = data.count || 0;
+        $('modCount').textContent = n + ' upcoming deadline' + (n === 1 ? '' : 's');
+        document.title = (data.module_code || data.module_name || 'Shared module') + ' – SemPal';
+        show('found');
+      })
+      .catch(function () {
+        // Couldn't check the code (e.g. offline): still let them open it in the app
+        hide('loading');
+        $('modName').textContent = 'Shared module';
+        $('modCount').textContent = 'Open it in SemPal to see the deadlines.';
+        show('found');
+      });
+  }
+</script>
+</body>
+</html>
