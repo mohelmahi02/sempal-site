@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shared module – SemPal</title>
-<meta name="description" content="A classmate shared their module deadlines with you on SemPal.">
+<title>Shared on SemPal</title>
+<meta name="description" content="A classmate shared their deadlines or timetable with you on SemPal.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 
 <main class="doc wrap" style="padding-top:8px">
   <div class="share-card">
-        <p class="muted" id="sharedWhat" style="margin:0 0 10px">A classmate shared a module with you</p>
+    <p class="muted" id="sharedWhat" style="margin:0 0 10px">A classmate shared a module with you</p>
     <div id="loading" class="muted">Loading…</div>
     <div id="found" class="hidden">
       <div class="mod-code" id="modCode"></div>
@@ -76,7 +76,7 @@
     <li>Sign up and set up your profile.</li>
     <li>Go to <strong>Modules → Got a share code from a classmate?</strong>, paste the code and tap <strong>Open</strong>.</li>
   </ol>
-  <p class="muted">Already have SemPal? Tap <strong>Open in SemPal</strong>. You'll see the deadlines first and choose which ones to add. They're copied into your app, so nobody can change them after.</p>
+  <p class="muted">Already have SemPal? Tap <strong>Open in SemPal</strong>. You'll see what's shared first and choose what to add. It's copied into your app, so nobody can change it after.</p>
 </main>
 
 <footer class="site"><div class="wrap">
@@ -167,7 +167,10 @@
         $('modCode').textContent = data.module_code || '';
         $('modName').textContent = data.module_name || 'Shared module';
         var n = data.count || 0;
-        if (data.kind === 'timetable') $('sharedWhat').textContent = 'A classmate shared their timetable with you';         $('modCount').textContent = data.kind === 'timetable'           ? n + ' weekly class' + (n === 1 ? '' : 'es')           : n + ' upcoming deadline' + (n === 1 ? '' : 's');
+        if (data.kind === 'timetable') $('sharedWhat').textContent = 'A classmate shared their timetable with you';
+        $('modCount').textContent = data.kind === 'timetable'
+          ? n + ' weekly class' + (n === 1 ? '' : 'es')
+          : n + ' upcoming deadline' + (n === 1 ? '' : 's');
         document.title = (data.module_code || data.module_name || 'Shared module') + ' – SemPal';
         show('found');
       })
@@ -175,7 +178,7 @@
         // Couldn't check the code (e.g. offline): still let them open it in the app
         hide('loading');
         $('modName').textContent = 'Shared module';
-        $('modCount').textContent = 'Open it in SemPal to see the deadlines.';
+        $('modCount').textContent = 'Open it in SemPal to see what\'s shared.';
         show('found');
       });
   }
