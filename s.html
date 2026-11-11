@@ -54,8 +54,20 @@
     </div>
   </div>
 
+  <div class="warn hidden" id="inAppHint" style="margin:0 0 14px">
+    <strong>You're viewing this inside <span id="inAppName">another app</span>.</strong>
+    To open SemPal, tap <strong>⋯</strong> or the share icon at the top or bottom of the screen, choose
+    <strong>Open in Safari</strong> (or Open in browser), then tap <strong>Open in SemPal</strong>.
+    Or tap <strong>Copy code</strong> and paste it in SemPal under Modules.
+  </div>
+
   <div class="actions" id="actions">
     <a class="btn" id="openBtn" href="#">Open in SemPal</a>
+    <div class="warn hidden" id="openHelp" style="margin:0">
+      <strong>App didn't open?</strong> Some apps (like Snapchat or Instagram) block links from opening other apps.
+      Tap <strong>Copy code</strong> above, open SemPal, go to <strong>Modules → Got a share code from a classmate?</strong> and paste it.
+      Or open this page in <strong>Safari</strong> and try again.
+    </div>
     <a class="btn alt" id="getBtn" href="beta.html">Get SemPal</a>
   </div>
 
@@ -76,7 +88,7 @@
 <script>
   // Public values: the same ones the app uses. The publishable key is safe to show on a web page.
   var SUPABASE_URL = 'https://vcutinmmbwnmkemdnuob.supabase.co';
-  var SUPABASE_KEY = 'sb_publishable_rc71YRmx8-cQpQY85qz7yw_qXuWbCLD';
+  var SUPABASE_KEY = 'PASTE_PUBLISHABLE_KEY_HERE';
   var ANDROID_PACKAGE = 'ie.sempal.app';
 
   var params = new URLSearchParams(location.search);
@@ -110,6 +122,15 @@
   $('openBtn').href = isAndroid ? androidLink : appLink;
   $('getBtn').href = 'beta.html' + (isIOS ? '#iphone' : '');
 
+  // If the app hasn't opened after a moment (e.g. an in-app browser blocked it), show what to do instead.
+  // Copy the code too, so it's ready to paste.
+  $('openBtn').addEventListener('click', function () {
+    copyCode();
+    setTimeout(function () {
+      if (!document.hidden && !inApp) show('openHelp');
+    }, 1500);
+  });
+
   $('copyBtn').addEventListener('click', function () {
     copyCode().then(function (ok) {
       $('copied').textContent = ok ? 'Copied! Paste it in SemPal under Modules.' : 'Long-press the code to copy it.';
@@ -117,6 +138,18 @@
   });
   // Copy the code on the way to installing, so it's ready to paste after sign-up
   $('getBtn').addEventListener('click', function () { copyCode(); });
+
+  // Snapchat, Instagram, TikTok and Facebook open links in their own browser, which can't open other apps
+  var ua = navigator.userAgent;
+  var inApp = /Snapchat/i.test(ua) ? 'Snapchat'
+    : /Instagram/i.test(ua) ? 'Instagram'
+    : /musical_ly|TikTok|BytedanceWebview/i.test(ua) ? 'TikTok'
+    : /FBAN|FBAV/i.test(ua) ? 'Facebook'
+    : null;
+  if (inApp) {
+    $('inAppName').textContent = inApp;
+    show('inAppHint');
+  }
 
   if (!code || code.length !== 6) {
     hide('loading'); show('missing'); hide('openBtn');
