@@ -33,7 +33,7 @@
 
 <main class="doc wrap" style="padding-top:8px">
   <div class="share-card">
-    <p class="muted" style="margin:0 0 10px">A classmate shared a module with you</p>
+        <p class="muted" id="sharedWhat" style="margin:0 0 10px">A classmate shared a module with you</p>
     <div id="loading" class="muted">Loading…</div>
     <div id="found" class="hidden">
       <div class="mod-code" id="modCode"></div>
@@ -167,7 +167,7 @@
         $('modCode').textContent = data.module_code || '';
         $('modName').textContent = data.module_name || 'Shared module';
         var n = data.count || 0;
-        $('modCount').textContent = n + ' upcoming deadline' + (n === 1 ? '' : 's');
+        if (data.kind === 'timetable') $('sharedWhat').textContent = 'A classmate shared their timetable with you';         $('modCount').textContent = data.kind === 'timetable'           ? n + ' weekly class' + (n === 1 ? '' : 'es')           : n + ' upcoming deadline' + (n === 1 ? '' : 's');
         document.title = (data.module_code || data.module_name || 'Shared module') + ' – SemPal';
         show('found');
       })
