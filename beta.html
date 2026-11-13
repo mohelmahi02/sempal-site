@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Beta Install Guide – SemPal</title>
-<meta name="description" content="How to install the SemPal beta on Android, what to test and how to send feedback.">
+<meta name="description" content="How to install the SemPal beta on iPhone and Android, what to test and how to send feedback.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,28 +19,32 @@
 
 <main class="doc wrap">
 <h1>Install the SemPal beta</h1>
-<p class="meta">Android only for now · takes about 3 minutes</p>
+<p class="meta">iPhone: open now · Android: coming soon · takes about 3 minutes</p>
 
-<p>Thanks for helping us test! The beta isn't on Google Play yet, so you'll install it straight from a download link. It's safe: it's the same app, just not through the store.</p>
+<p>Thanks for helping us test! The beta isn't in the App Store or on Google Play for everyone yet, so you'll join through a test link instead. It's the same app, just installed through Apple's or Google's testing system.</p>
 
-<div class="note" id="iphone"><strong>Got an iPhone?</strong> The beta is Android-only for now. We'll let you know as soon as there's an iPhone version.</div>
-
-<p id="androidDownload">
-  <!-- TODO: replace the href with the EAS build download link before sharing -->
-  <a class="btn" id="download" href="DOWNLOAD_LINK">Download SemPal for Android</a>
-</p>
-<div class="warn hidden" id="iosNotice"><strong>You're on an iPhone.</strong> This download only works on Android phones. The iPhone beta is coming through TestFlight; we'll send you the link when it's ready.</div>
-
-<h2>Install it</h2>
+<h2 id="iphone">iPhone</h2>
+<p id="iosButton"><a class="btn" href="https://testflight.apple.com/join/vAXxtfYD">Join the iPhone beta</a></p>
 <ol class="steps">
-<li><strong>Open this page on your Android phone</strong>Tap the download button above. If Chrome warns that the file "might be harmful", tap <strong>Download anyway</strong>.</li>
-<li><strong>Open the file</strong>When it's finished, tap <strong>Open</strong> in the pop-up, or find <em>SemPal….apk</em> in your Downloads.</li>
-<li><strong>Allow installs from Chrome</strong>Your phone will say it can't install unknown apps. Tap <strong>Settings</strong>, turn on <strong>Allow from this source</strong>, then go back.</li>
-<li><strong>Tap Install</strong>If Google Play Protect says the app is unrecognised, tap <strong>More details → Install anyway</strong>. That's normal for apps that aren't in the store yet.</li>
+<li><strong>Install TestFlight</strong>Get Apple's free <a href="https://apps.apple.com/app/testflight/id899247664">TestFlight</a> app from the App Store. It's how Apple lets people test apps before they're released.</li>
+<li><strong>Open the beta link on your iPhone</strong>Tap <strong>Join the iPhone beta</strong> above, or open <a href="https://testflight.apple.com/join/vAXxtfYD">testflight.apple.com/join/vAXxtfYD</a>.</li>
+<li><strong>Tap Accept, then Install</strong>SemPal appears on your home screen like any other app.</li>
 <li><strong>Open SemPal and sign up</strong>Use your email, pick your college and campus, and allow notifications when asked.</li>
 </ol>
+<div class="note">Updates arrive through TestFlight, and smaller fixes download inside the app by themselves. If we ask you to check a fix, close SemPal fully and open it twice.</div>
 
-<div class="warn"><strong>Xiaomi, Redmi, POCO, Huawei, Oppo, OnePlus or Samsung?</strong> These phones can block notifications to save battery. After installing:
+<h2 id="android">Android</h2>
+<div class="note" id="androidSoon"><strong>Coming soon.</strong> The Android beta will run through Google Play. To join, send us the <strong>Gmail address</strong> you use on your phone (in the WhatsApp group, or at <a href="mailto:support@sempal.ie">support@sempal.ie</a>) and we'll send you the link when it's ready.</div>
+<!-- When the Play closed test is live: replace the note above with
+<p><a class="btn" href="PLAY_OPT_IN_LINK">Join the Android beta</a></p>
+<ol class="steps">
+<li><strong>Open the link on your Android phone</strong>Sign in with the Gmail you gave us and tap <strong>Become a tester</strong>.</li>
+<li><strong>Install from Google Play</strong>Tap the Google Play link on that page, then <strong>Install</strong>.</li>
+<li><strong>Open SemPal and sign up</strong>Use your email, pick your college and campus, and allow notifications when asked.</li>
+</ol>
+-->
+
+<div class="warn"><strong>Android: Xiaomi, Redmi, POCO, Huawei, Oppo, OnePlus or Samsung?</strong> These phones can block notifications to save battery. After installing:
 <ul>
 <li>Long-press the SemPal icon → <strong>App info</strong>.</li>
 <li><strong>Battery</strong> (or Battery saver) → choose <strong>No restrictions</strong> / Unrestricted.</li>
@@ -65,23 +69,22 @@
 <li>what you expected, and what actually happened,</li>
 <li>a screenshot if you can, and your phone model.</li>
 </ul>
+<p>On iPhone you can also take a screenshot while using SemPal and tap <strong>Share Beta Feedback</strong>. It comes straight to us with your screenshot.</p>
 <p>If the app crashes, we get an automatic report, but a quick message about what you were doing still helps a lot.</p>
 <p>Please don't post your college calendar link or other private links in the group.</p>
 
-<h2>Updates</h2>
-<p>When there's a new version we'll post a new download link. Install it the same way; it'll update the app and keep your account. You don't need to uninstall first.</p>
-
 <h2>Removing the beta</h2>
-<p>To delete your data first, go to <strong>Profile → Delete account</strong> in the app. Then long-press the SemPal icon and tap <strong>Uninstall</strong>. Uninstalling on its own doesn't delete your account.</p>
+<p>To delete your data first, go to <strong>Profile → Delete account</strong> in the app. Then delete the app like any other: long-press the SemPal icon and tap <strong>Remove App</strong> (iPhone) or <strong>Uninstall</strong> (Android). Uninstalling on its own doesn't delete your account.</p>
 
 <p>By using the beta you agree to our <a href="terms.html">Terms</a>. Here's how we handle your data: <a href="privacy.html">Privacy Policy</a>.</p>
 </main>
 <script>
-  // iPhones can't install Android apps: swap the download button for a note
-  if (/iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
-    document.getElementById('androidDownload').style.display = 'none';
-    document.getElementById('iosNotice').classList.remove('hidden');
+  // On Android, show the Android section first
+  if (/Android/i.test(navigator.userAgent)) {
+    var main = document.querySelector('main');
+    var android = document.getElementById('android');
+    main.insertBefore(android.nextElementSibling, main.querySelector('#iphone'));
+    main.insertBefore(android, main.querySelector('#androidSoon'));
   }
 </script>
 
