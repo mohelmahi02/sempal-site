@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delete your SemPal account or data – SemPal</title>
+<meta name="description" content="How to delete your SemPal account or some of your data, and what is deleted.">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="./"><img src="img/icon.png" alt=""><span class="word"><span class="sem">Sem</span><span class="pal">Pal</span></span></a>
+  <nav><a href="beta.html">Beta</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+</div></header>
+
+<main class="doc wrap">
+<h1>Delete your SemPal account or data</h1>
+<p class="meta">SemPal · developer: SemPal (Mohammad Elmahi and Johnson Mununkum)</p>
+
+<h2>Delete your whole account</h2>
+<ol class="steps">
+<li><strong>Open SemPal</strong>Go to the <strong>Profile</strong> tab.</li>
+<li><strong>Tap Delete account</strong>It's at the bottom, under Account. Confirm when asked.</li>
+</ol>
+<p>Can't open the app? Email <a href="mailto:support@sempal.ie?subject=Delete%20my%20SemPal%20account">support@sempal.ie</a> from the email address you signed up with, and we'll delete your account within 30 days (usually much sooner).</p>
+
+<h2>What is deleted</h2>
+<ul>
+<li>Your account, name, email and profile (college, course, year)</li>
+<li>Your modules, deadlines, classes, reminders and notes</li>
+<li>Uploaded syllabus and timetable files</li>
+<li>Saved calendar links, including your Moodle calendar link</li>
+<li>Module and timetable shares you created</li>
+<li>Push notification tokens</li>
+</ul>
+<p>This happens straight away. Copies in our backups are removed within 30 days.</p>
+
+<h2>What is kept, and for how long</h2>
+<ul>
+<li><strong>Class alerts and reports</strong> you sent are kept without your name for up to 90 days after the class, to deal with abuse reports, then deleted.</li>
+<li><strong>Crash reports</strong> (which don't include your name or email) are kept by our crash reporting service for up to 90 days.</li>
+</ul>
+
+<h2>Delete some data but keep your account</h2>
+<ul>
+<li><strong>Deadlines and modules:</strong> open the deadline or module and tap Delete.</li>
+<li><strong>Timetables:</strong> Profile → Timetable → the bin icon next to a calendar or upload.</li>
+<li><strong>Moodle link and its deadlines:</strong> Profile → Moodle deadlines → the bin icon.</li>
+<li><strong>Anything else:</strong> email <a href="mailto:support@sempal.ie">support@sempal.ie</a> and tell us what to delete.</li>
+</ul>
+
+<p>More detail is in our <a href="privacy.html">Privacy Policy</a>.</p>
+</main>
+
+<footer class="site"><div class="wrap">
+  <span>© 2026 SemPal · Made in Ireland</span>
+  <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="mailto:support@sempal.ie">support@sempal.ie</a></span>
+</div></footer>
+</body>
+</html>
