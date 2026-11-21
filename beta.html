@@ -19,7 +19,7 @@
 
 <main class="doc wrap">
 <h1>Install the SemPal beta</h1>
-<p class="meta">iPhone: open now · Android: coming soon · takes about 3 minutes</p>
+<p class="meta">iPhone and Android · takes about 3 minutes</p>
 
 <p>Thanks for helping us test! The beta isn't in the App Store or on Google Play for everyone yet, so you'll join through a test link instead. It's the same app, just installed through Apple's or Google's testing system.</p>
 
@@ -33,16 +33,17 @@
 </ol>
 <div class="note">Updates arrive through TestFlight, and smaller fixes download inside the app by themselves. If we ask you to check a fix, close SemPal fully and open it twice.</div>
 
+<section id="androidSection">
 <h2 id="android">Android</h2>
-<div class="note" id="androidSoon"><strong>Coming soon.</strong> The Android beta will run through Google Play. To join, send us the <strong>Gmail address</strong> you use on your phone (in the WhatsApp group, or at <a href="mailto:support@sempal.ie">support@sempal.ie</a>) and we'll send you the link when it's ready.</div>
-<!-- When the Play closed test is live: replace the note above with
-<p><a class="btn" href="PLAY_OPT_IN_LINK">Join the Android beta</a></p>
+<p id="androidSoon"><a class="btn" href="https://play.google.com/apps/internaltest/4701732800129656354">Join the Android beta</a></p>
+<div class="note"><strong>First, send us your Gmail.</strong> Google only lets in testers we've added, so send us the <strong>Gmail address you use on your phone</strong> (in the WhatsApp group, or at <a href="mailto:support@sempal.ie">support@sempal.ie</a>). We'll reply when you're added, usually the same day.</div>
 <ol class="steps">
-<li><strong>Open the link on your Android phone</strong>Sign in with the Gmail you gave us and tap <strong>Become a tester</strong>.</li>
-<li><strong>Install from Google Play</strong>Tap the Google Play link on that page, then <strong>Install</strong>.</li>
+<li><strong>Open the beta link on your Android phone</strong>Tap <strong>Join the Android beta</strong> above, signed in to Google Play with the Gmail you sent us.</li>
+<li><strong>Tap Become a tester</strong>Then tap <strong>Download it on Google Play</strong>.</li>
+<li><strong>Tap Install</strong>For the first few days it may show as <em>ie.sempal.app</em> instead of SemPal. That's normal for apps in testing.</li>
 <li><strong>Open SemPal and sign up</strong>Use your email, pick your college and campus, and allow notifications when asked.</li>
 </ol>
--->
+</section>
 
 <div class="warn"><strong>Android: Xiaomi, Redmi, POCO, Huawei, Oppo, OnePlus or Samsung?</strong> These phones can block notifications to save battery. After installing:
 <ul>
@@ -82,9 +83,7 @@
   // On Android, show the Android section first
   if (/Android/i.test(navigator.userAgent)) {
     var main = document.querySelector('main');
-    var android = document.getElementById('android');
-    main.insertBefore(android.nextElementSibling, main.querySelector('#iphone'));
-    main.insertBefore(android, main.querySelector('#androidSoon'));
+    main.insertBefore(document.getElementById('androidSection'), document.getElementById('iphone'));
   }
 </script>
 
